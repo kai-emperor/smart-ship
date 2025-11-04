@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>智慧船情</title>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/dsahboard.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-content">
+                <div class="left"></div>
+                <div class="middle">智慧船情</div>
+                <div class="bottom"></div>
+            </div>
+        </header>
+        <aside>
+            <div class="aside-content">
+                <div class="vertical-menu">
+                    <div class="menu-header">船队</div>
+                    <div id="menu"></div>
+                </div>
+                <div id="externalMenu" class="external-menu"></div>
+            </div>
+        </aside>
+        <footer>
+           <div class="footer-content">
+                <div class="footer-container">
+                    <div class="box">
+                        <div class="boxin"></div>
+                    </div>
+                    <div class="line"></div>
+                    <div class="box">
+                        <div class="boxin"></div>
+                    </div>
+                </div>
+                <div class="content">智慧船情公司</div>
+                <div class="footer-container">
+                    <div class="box">
+                        <div class="boxin"></div>
+                    </div>
+                    <div class="line"></div>
+                    <div class="box">
+                        <div class="boxin"></div>
+                    </div>
+                </div>
+           </div>
+        </footer>
+       
+    </div>
+    
+    <script src="../js/echarts.min.js"></script>
+    <script src="../js/china.js"></script>
+    <script src="../js/app.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+    $(function() {
+        // 假数据
+        const menuData = [
+            {
+                title: "蓝色船队",
+                children: [
+                    { title: "上和" },
+                    { title: "海洋二号" },
+                    { title: "蕲祥鹭航北斗1" }
+                ]
+            },
+            {
+                title: "绿色船队",
+                children: [
+                    { title: "上和" },
+                    { title: "海洋二号" },
+                    { title: "蕲祥鹭航北斗2" }
+                ]
+            },
+            {
+                title: "青色船队",
+                children: [
+                    { title: "上和" },
+                    { title: "海洋二号" },
+                    { title: "蕲祥鹭航北斗3" }
+                ]
+            },
+            {
+                title: "粉色船队",
+                children: [
+                    { title: "基本设置" },
+                    { title: "通知配置" }
+                ]
+            }
+        ];
+
+        // 生成菜单HTML
+        function generateMenu(items, parentElement) {
+            let html = '';
+            items.forEach(item => {
+                const hasChildren = item.children && item.children.length > 0;
+                
+                html += `
+                <div class="menu-item" data-level="1" data-has-children="${hasChildren}">
+                    <span>${item.title}</span>
+                    ${hasChildren ? '<span class="menu-arrow"></span>' : ''}
+                </div>
+                `;
+                
+                if (hasChildren) {
+                    html += `<div class="sub-menu" data-level="2">`;
+                    item.children.forEach(child => {
+                        const hasGrandChildren = child.children && child.children.length > 0;
+                        
+                        html += `
+                        <div class="sub-menu-item" data-level="2" data-has-children="${hasGrandChildren}">
+                            <span><img src="/img/ship.png"/></span>
+                            <span>${child.title}</span>
+                            ${hasGrandChildren ? '<span class="indicator"></span><span class="menu-arrow"></span>' : ''}
+                        </div>
+                        `;
+                    });
+                    html += `</div>`;
+                }
+            });
+            
+            parentElement.html(html);
+            setupMenuEvents();
+        }
+
+        // 设置菜单事件
+        function setupMenuEvents() {
+            // 菜单标题点击事件（展开/收起菜单）
+            $('.menu-header').click(function() {
+                $(this).toggleClass('expanded');
+                $('#menu').slideToggle(200);
+                $('#externalMenu').hide();
+            });
+
+            // 一级菜单点击
+            $('.menu-item[data-level="1"]').click(function(e) {
+                e.stopPropagation();
+                const hasChildren = $(this).data('has-children');
+                
+                // 关闭其他一级菜单
+                $('.menu-item[data-level="1"]').not(this).removeClass('active');
+                $('.menu-item[data-level="1"]').not(this).next('.sub-menu').slideUp(200);
+                
+                // 切换当前菜单
+                $(this).toggleClass('active');
+                
+                if (hasChildren) {
+                    $(this).next('.sub-menu').slideToggle(200);
+                }
+            });
+            
+            // 二级菜单点击
+            $('.sub-menu-item[data-level="2"]').click(function(e) {
+                e.stopPropagation();
+                const hasChildren = $(this).data('has-children');
+                
+                if (hasChildren) {
+                    e.preventDefault();
+                    
+                    // 生成三级菜单内容
+                    const itemData = {
+                        title: $(this).text().trim(),
+                        shipInfo: {
+                            name: "远洋号",
+                            status: "航行中",
+                            speed: "18.5节",
+                            longitude: "123.456°",
+                            latitude: "45.678°",
+                            utc: "2025-06-07 05:46:23"
+                        }
+                    };
+                    
+                    generateExternalMenu(itemData);
+                    
+                    // 显示外部菜单
+                    $('#externalMenu').show();
+                }
+            });
+        }
+
+        // 生成外部菜单
+        function generateExternalMenu(itemData) {
+            const shipInfo = itemData.shipInfo || {};
+            
+            let html = `
+            <div class="ship-header">
+                <div class="ship-title">${itemData.title}</div>
+                <div class="ship-icon">
+                    <a href="/pages/report.html?title=${itemData.title}">
+                        <img src="/img/arrow.png" alt="">
+                    </a>
+                </div>
+                
+                </div>
+            <div class="ship-info">
+                <div class="info-row">
+                    <div class="info-label">船名：</div>
+                    <div class="info-value">${shipInfo.name || '未设置'}</div>
+                </div>
+                <div class="info-row">
+                    <div class="info-label">状态：</div>
+                    <div class="info-value">${shipInfo.status || '未知'}</div>
+                </div>
+                <div class="info-row">
+                    <div class="info-label">航速：</div>
+                    <div class="info-value">${shipInfo.speed || '0节'}</div>
+                </div>
+                <div class="info-row">
+                    <div class="info-label">经度：</div>
+                    <div class="info-value">${shipInfo.longitude || '0°'}</div>
+                </div>
+                <div class="info-row">
+                    <div class="info-label">纬度：</div>
+                    <div class="info-value">${shipInfo.latitude || '0°'}</div>
+                </div>
+                <div class="info-row">
+                    <div class="info-label">UTC：</div>
+                    <div class="info-value">${shipInfo.utc || '2025-01-01 00:00'}</div>
+                </div>
+            </div>
+            <div class="monitor-container">
+                <div class="monitor-box"></div>
+                <div class="monitor-box monitor-box-bottom"></div>
+            </div>
+            `;
+            
+            $('#externalMenu').html(html);
+        }
+
+        // 初始化菜单
+        generateMenu(menuData, $('#menu'));
+        
+        // 点击外部区域关闭菜单
+        $(document).click(function(e) {
+            if (!$(e.target).closest('.vertical-menu').length && 
+                !$(e.target).closest('#externalMenu').length) {
+                $('.sub-menu').slideUp(200);
+                $('.menu-item').removeClass('active');
+                $('#externalMenu').hide();
+            }
+        });
+    });
+    </script>
+
+</body>
+</html>

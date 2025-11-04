@@ -1,0 +1,260 @@
+html,body{
+    width: 100%;
+    height: 100%;
+}
+body{
+    /* background-image: url(../img/map_bg.jpg);
+    background-repeat: no-repeat;
+    background-position: top;
+    background-size: 100%;
+    background-color: rgb(3,3,78); */
+}
+.container{
+    width: 100%;
+    height: 100%;
+}
+/* .container header{
+    width: 100%;
+    text-align: center;
+} */
+
+.container header h1{
+    margin:0 auto;
+    height: 100%;
+    line-height: 80px;
+    font-size: 30px;
+    color: #fff;
+    font-weight: 800;
+    text-shadow: 5px 5px 5px rgba(46, 9, 9, 0.3);
+    letter-spacing: 5px;
+}
+.container .content{
+    height: calc(100% - 80px);
+    width: 100%;
+    
+}
+.container .content .left-side{
+    width: 24%;
+    height: 100%;
+
+    float: left;
+    padding: 10px;
+    box-sizing: border-box;
+}
+.left-side .left-top{
+    width: 100%;
+    height: calc(40% - 20px);
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+.left-top .show{
+	position: absolute;
+	text-align: center;
+	color: #FFFFFF;
+	font-size: 12px;
+	width: 50%;
+}
+.left-top #sum{
+	top:20%;
+	left:0%;
+}
+.left-top #online{
+	top:20%;
+	left: 50%;
+}
+.left-top #active{
+	top:60%;
+	left: 0%;
+}
+.left-top #activeRate{
+	top:60%;
+	left: 50%;
+}
+.left-top .show img{
+	width: 20%;
+}
+
+
+.title{
+    color: #fff;
+    font-size: 20px;
+    font-weight: 800;
+    height: 30px;
+    line-height: 30px;
+    padding-left: 10px;
+    border-left: 1px solid rgba(61, 106, 195);
+    position: relative;
+}
+.title::before{
+    content: "";
+    display: block;
+    width: 15px;
+    height: 0px;
+    border-top: 1px solid rgb(61,106,195);
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+.title::after{
+    content: "";
+    display: block;
+    width: 80px;
+    height: 0px;
+    border-top: 1px solid rgb(61,106,195);
+    position: absolute;
+    left: 20px;
+    bottom: 0;
+}
+
+.left-side .left-center{
+    margin-top: 10px;
+    width: 100%;
+    height: 30%;
+    background-color: rgba(0, 0, 0, 0.3);
+    position: relative;
+}
+#type{
+    position: absolute;  
+    width: 100%;
+    height: 100%;
+    top: 10px;
+}
+.left-side .left-bottom{
+    margin-top: 10px;
+    width: 100%;
+    height: 30%;
+    background-color: rgba(0, 0, 0, 0.3);
+    position: relative;
+}
+#carType{
+    position: absolute;  
+    width: 100%;
+    height: 100%;
+    top: 30px;
+}
+.container .content .center-cont{
+    width: 52%;
+    height: 100%;
+    float: left;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.center-cont .center-cont-top{
+    width: 100%;
+    height: calc(70% - 17px);
+
+    position: relative;
+}
+/* 地图演示 */
+#map{
+    position: absolute;  
+    width: 100%;
+    height: 100%;
+    top: 10px;
+}
+.center-cont .center-cont-bottom{
+    width: 100%;
+    height: 30%;
+    background-color: rgba(0, 0, 0, 0.3);
+    margin-top:10px;
+    position: relative;
+}
+#echarts_3{
+    position: absolute;  
+    width: 100%;
+    height: 100%;
+    top: 10px;
+}
+.container .content .right-side{
+    width: 24%;
+    height: 100%;
+
+    float: right;
+    padding: 10px;
+    box-sizing: border-box;
+}
+.right-side .right-top{
+    width: 100%;
+    height: calc(33.3333% - 6.66666667px);
+    background-color: rgba(0, 0, 0, 0.3);
+    position: relative;
+}
+#carTop{
+    position: absolute;  
+    width: 100%;
+    height: 100%;
+    top: 10px;
+}
+.right-side .right-center{
+    margin-top:10px;
+    width: 100%;
+    height: calc(33.3333% - 6.66666667px);
+    background-color: rgba(0, 0, 0, 0.3);
+}
+#warnTop{
+    position: absolute;  
+    width: 100%;
+    height: 100%;
+    top: 10px;
+}
+.right-side .right-bottom{
+    margin-top:10px;
+    width: 100%;
+    height: calc(33.3333% - 6.66666667px);
+    background-color: rgba(0, 0, 0, 0.3);
+}
+#batTop{
+    position: absolute;  
+    width: 100%;
+    height: 100%;
+    top: 10px;
+}
+.corner{
+    position: relative;
+}
+.corner::before{
+    content: "";
+    display: block;
+    width: 15px;
+    height: 0px;
+    border-top: 1px solid rgb(61,106,195);
+    position: absolute;
+    right: 0;
+    bottom: 0;
+}
+.corner::after{
+    content: "";
+    display: block;
+    width: 0px;
+    height: 30px;
+    border-right: 1px solid rgb(61,106,195);
+    position: absolute;
+    right: 0;
+    bottom: 0;
+}
+.car-nums{
+    width: 380px;
+    height: 60px;
+    display: flex;
+    margin-top: 15px;
+}
+.car-nums span{
+    flex: 1;
+    height: 60px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    margin-left: 5px;
+    border-radius: 5px;
+    text-align: center;
+    line-height: 60px;
+    background-color: rgba(0,0,0,0.2);
+    color: #fff;
+    font-size: 60px;
+    font-weight: 800;
+}
+
+.sum{
+    font-size: 14px;
+    font-weight: 800;
+}

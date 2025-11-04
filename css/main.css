@@ -1,0 +1,83 @@
+:root {
+    --main-bg: #0a0f2b;
+    --primary-color: #007bff;
+    --text-color: #ffffff;
+    --border-radius: 8px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--main-bg);
+    color: var(--text-color);
+    font-family: 'Microsoft YaHei', sans-serif;
+    overflow: hidden;
+    height: 100vh;
+}
+
+.container {
+    display: grid;
+    grid-template-rows: 60px 1fr;
+    height: 100vh;
+}
+
+.ui-switcher {
+    padding: 10px 20px;
+    background: rgba(0, 0, 0, 0.3);
+    display: flex;
+    gap: 15px;
+}
+
+.ui-switcher button {
+    background: transparent;
+    border: 1px solid var(--primary-color);
+    color: var(--primary-color);
+    padding: 5px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.ui-switcher button.active {
+    background: var(--primary-color);
+    color: white;
+}
+
+#content-frame {
+    width: 100%;
+    height: calc(100vh - 60px);
+    border: none;
+}
+
+/* 移动端适配 */
+@media (max-width: 768px) and (orientation: portrait) {
+    .container {
+        grid-template-rows: 50px 1fr;
+    }
+    
+    .ui-switcher {
+        padding: 5px 10px;
+        gap: 10px;
+    }
+    
+    .ui-switcher button {
+        padding: 3px 10px;
+        font-size: 12px;
+    }
+}
+
+/* 横屏超宽处理 */
+@media (min-aspect-ratio: 16/9) {
+    body {
+        background-color: black;
+    }
+    
+    .container {
+        max-height: 100vh;
+        overflow: hidden;
+    }
+}

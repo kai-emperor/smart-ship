@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <title>船队管理系统</title>
+  <!-- 引入Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="../css/common.css">
+   <link rel="stylesheet" href="../css/trajectory.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- 新增jQuery UI JS -->
+  <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+</head>
+
+<body>
+  <div>
+    <header>
+      <div class="header-content">
+        <div class="header-left">
+          <img class="left" src="../img/report/left.png" />
+          <span class="header-title"></span>
+          <img class="right" src="../img/report/right.png" />
+        </div>
+        <div class="header-right">
+          <a href="/pages/dashboard.html" class="nav">
+            <img src="../img/report/home.png" alt="">
+          </a>
+          <a href="/pages/monitor.html" class="nav">
+            <img src="../img/report/video.png" alt="">
+          </a>
+          <a href="/pages/trajectory.html" class="nav">
+            <img src="../img/report/logistics.png" alt="">
+          </a>
+          <div class="dateTime">
+            <div class="time">12:33:38</div>
+            <div class="date">2025-6-12 星期三</div>
+          </div>
+        </div>
+      </div>
+    </header>
+    <main>
+        <div class="iconList">
+            <!-- <div class="icon">
+                <img src="" alt="">
+            </div> -->
+            
+        </div>
+        <div class="dataInfo">
+            <div class="real-data">
+                <div class="title">实时数据</div>
+                <div class="arrow"></div>
+            </div>
+            <div class="weather">
+                <div class="title">热带热带低压</div>
+                <div class="arrow"></div>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <div class="footer-content">
+            <div class="footer-container">
+                <div class="box">
+                    <div class="boxin"></div>
+                </div>
+                <div class="line"></div>
+                <div class="box">
+                    <div class="boxin"></div>
+                </div>
+            </div>
+            <div class="content">智慧船情公司</div>
+            <div class="footer-container">
+                <div class="box">
+                    <div class="boxin"></div>
+                </div>
+                <div class="line"></div>
+                <div class="box">
+                    <div class="boxin"></div>
+                </div>
+            </div>
+        </div>
+    </footer>
+  </div>
+  <script>
+    $(function () {
+         $('.header-title').text('实时轨迹');
+        // 定义图片地址数组
+        const imgUrls = [
+            '../img/trajectory/amplify.png',
+            '../img/trajectory/reduce.png',
+            '../img/trajectory/safe.png',
+            '../img/trajectory/play.png',
+            '../img/trajectory/pause.png',
+            '../img/trajectory/ship.png',
+            '../img/trajectory/weather.png',
+            '../img/trajectory/kml.png',
+            '../img/trajectory/tool.png',
+            '../img/trajectory/flag.png',
+            '../img/trajectory/back.png',
+        ];
+
+       // 清空左侧容器
+        const $iconList = $('.iconList');
+        $iconList.empty();
+        
+        // 动态生成图标元素
+        imgUrls.forEach((url, index) => {
+            // 创建容器元素
+            const $iconDiv = $('<div>').addClass('icon');
+            
+            // 创建图片元素
+            const $img = $('<img>').attr({
+                src: url,
+                // alt: `功能图标 ${index + 1}`,
+                // title: `功能图标 ${index + 1}`
+            });
+            
+            // 添加悬停效果
+            $iconDiv.hover(
+                function() { $(this).css('opacity', '0.8'); },
+                function() { $(this).css('opacity', '1'); }
+            );
+            
+            // 组装元素
+            $iconDiv.append($img);
+            $iconList.append($iconDiv);
+        }); 
+    });  
+  </script>
+</body>
+
+</html>

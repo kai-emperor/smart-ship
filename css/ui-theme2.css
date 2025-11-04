@@ -1,0 +1,16 @@
+/* 深空科技感主题 */
+:root {
+    --main-bg: #121212;
+    --primary-color: #ff4081;
+    --secondary-color: #651fff;
+    --card-bg: rgba(30, 30, 40, 0.8);
+    --border-color: #4a4a4a;
+}
+
+.metric-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    padding: 15px;
+    box-shadow: 0 0 10px rgba(255, 64, 129, 0.3);
+}

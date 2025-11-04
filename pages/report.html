@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <title>船队管理系统</title>
+  <!-- 引入Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="../css/common.css">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/report.css">
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.2/dist/echarts.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+</head>
+
+<body>
+  <div>
+    <header>
+      <div class="header-content">
+        <div class="header-left">
+          <img class="left" src="../img/report/left.png" />
+          <span class="header-title"></span>
+          <img class="right" src="../img/report/right.png" />
+        </div>
+        <div class="header-right">
+          <a href="/pages/dashboard.html" class="nav">
+            <img src="../img/report/home.png" alt="">
+          </a>
+          <a href="/pages/monitor.html" class="nav">
+            <img src="../img/report/video.png" alt="">
+          </a>
+          <a href="/pages/trajectory.html" class="nav">
+            <img src="../img/report/logistics.png" alt="">
+          </a>
+          <div class="dateTime">
+            <div class="time">12:33:38</div>
+            <div class="date">2025-6-12 星期三</div>
+          </div>
+        </div>
+      </div>
+    </header>
+    <main>
+        <div class="main-left">
+            <div class="aside">
+                <div class="content">
+                    <div class="aside-header">上和执行情况</div>
+                    <div class="aside-content">
+                        <div class="info">
+                            <div class="dot"></div>
+                            <div class="info-title">航次</div>
+                            <div class="info-percent">70%</div>
+                        </div>
+                        <div class="progress" role="progressbar" aria-label="Animated striped example" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100">
+                            <div class="progress-bar progress-bar-striped progress-bar-animated" style="width: 70%"></div>
+                        </div>
+                        <div class="detail">
+                            <div class="left">
+                                <div class="detail-title">kk504航次</div>
+                                <div>05月18日-07月13日</div>
+                            </div>
+                            <div class="right">
+                                <div  class="detail-title">行驶里程</div>
+                                <div>47241.27mm</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="aside">
+                <div class="content">
+                    <div class="aside-header">船舶基本信息</div>
+                    <div class="detailInfo">
+                        <div class="time">
+                            <div class="timeImg"></div>
+                            <span class="time-title">UTC：</span>
+                            <span class="time-content">2025-06-07  05:46:45</span>
+                        </div>
+                        <div class="location">
+                            <div class="left"></div>
+                            <div class="right">
+                                <div class="latitude">
+                                    <span class="name">纬度：</span>
+                                    <span>24°3248.440"N</span>
+                                </div>
+                                 <div class="longitude">
+                                    <span class="name">经度：</span>
+                                    <span>11805'57.443"E</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="aside">
+                <div class="content">
+                    <div class="aside-header">
+                        AWS实时数据
+                    </div>
+                    <div id="aws-chart" class="aws-content">
+
+                    </div>
+                </div>
+            </div>
+            <div class="aside">
+                <div class="content">
+                    <div class="aside-header"></div>
+                </div>
+            </div>
+        </div>
+        <div class="main-right">
+            <div class="map"></div>
+            <div class="video">
+                <div class="video-item">
+                    <div class="content">
+                        <div class="video-header">
+                            右舷前
+                        </div>
+                        <div class="video-content">
+                            <div class="video-container">
+                                <img style="width: 100%;height: 100%;" src="/img/report/video-item.png" alt="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="video-item">
+                    <div class="content">
+                        <div class="video-header">
+                            船艏前
+                        </div>
+                        <div class="video-content">
+                            <div class="video-container">
+                                <img style="width: 100%;height: 100%;" src="/img/report/video-item.png" alt="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="video-item">
+                    <div class="content">
+                        <div class="video-header">
+                            主实验室
+                        </div>
+                        <div class="video-content">
+                            <div class="video-container">
+                                <img style="width: 100%;height: 100%;" src="/img/report/video-item.png" alt="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="video-item">
+                    <div class="content">
+                        <div class="video-header">
+                            船尾后
+                        </div>
+                        <div class="video-content">
+                            <div class="video-container">
+                                <img style="width: 100%;height: 100%;" src="/img/report/video-item.png" alt="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+  </div>
+  <script>
+    $(function () {
+      const urlParams = new URLSearchParams(window.location.search);
+
+      // 读取参数值
+      const title = urlParams.get('title') || '上和'
+      $('.header-title').text(title);
+      const asideTitle = urlParams.get('title')+'上和执行情况' || '未知'
+      $('.aside-header').text(asideTitle);
+    });
+    // 初始化ECharts实例  
+        let awsChart = echarts.init(document.getElementById('aws-chart'));  
+  
+        // 配置选项  
+        let awsOption = {  
+            // title: {  
+            //     text: '大气温度与相对湿度变化',  
+            //     left: 'center'  
+            // },  
+            tooltip: {  
+                trigger: 'axis',  
+                axisPointer: {  
+                    type: 'cross'  
+                }  
+            },  
+            legend: {  
+                data: ['温度 (°C)', '相对湿度 (%)'],  
+                // right: 50,  
+                top: 10  
+            },  
+            grid: {  
+                left: '3%',  
+                right: '4%',  
+                bottom: '3%',  
+                containLabel: true  
+            },  
+            xAxis: {  
+                type: 'category',  
+                boundaryGap: false,  
+                data: ['00:00', '03:00', '06:00', '09:00', '12:00', '15:00', '18:00', '21:00'],  
+                name: '时间段'  
+            },  
+            yAxis: [  
+                {  
+                    type: 'value',  
+                    position: 'left',  
+                    name: '温度 (°C)',  
+                    nameTextStyle: {  
+                        color: '#FF5733'  
+                    },  
+                    axisLine: {  
+                        show: true,  
+                        lineStyle: {  
+                            color: '#FF5733'  
+                        }  
+                    },  
+                    axisLabel: {  
+                        formatter: '{value} °C',  
+                        color: '#FF5733'  
+                    }  
+                },  
+                {  
+                    type: 'value',  
+                    position: 'right',  
+                    name: '相对湿度 (%)',  
+                    nameTextStyle: {  
+                        color: '#33A1FF'  
+                    },  
+                    axisLine: {  
+                        show: true,  
+                        lineStyle: {  
+                            color: '#33A1FF'  
+                        }  
+                    },  
+                    axisLabel: {  
+                        formatter: '{value} %',  
+                        color: '#33A1FF'  
+                    }  
+                }  
+            ],  
+            series: [  
+                {  
+                    name: '温度 (°C)',  
+                    type: 'line',  
+                    data: [5, 4, 8, 15, 22, 25, 20, 16],  
+                    itemStyle: {  
+                        color: '#FF5733'  
+                    },  
+                    lineStyle: {  
+                        width: 3,  
+                        color: '#FF5733'  
+                    }  
+                },  
+                {  
+                    name: '相对湿度 (%)',  
+                    type: 'line',  
+                    yAxisIndex: 1,  
+                    data: [90, 92, 85, 70, 60, 65, 75, 80],  
+                    itemStyle: {  
+                        color: '#33A1FF'  
+                    },  
+                    lineStyle: {  
+                        width: 3,  
+                        color: '#33A1FF'  
+                    }  
+                }  
+            ]  
+        };  
+  
+        // 应用配置  
+        awsChart.setOption(awsOption);  
+  
+        // 响应窗口大小变化  
+        $(window).on('resize', function() {  
+            awsChart.resize();  
+        });  
+  </script>
+</body>
+
+</html>

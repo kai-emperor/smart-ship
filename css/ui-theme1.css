@@ -1,0 +1,16 @@
+/* 蓝色海洋风主题 */
+:root {
+    --main-bg: #0a0f2b;
+    --primary-color: #007bff;
+    --secondary-color: #1e90ff;
+    --card-bg: rgba(0, 30, 60, 0.7);
+    --border-color: #0057b8;
+}
+
+.metric-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    padding: 15px;
+    box-shadow: 0 0 10px rgba(0, 119, 255, 0.3);
+}

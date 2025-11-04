@@ -1,0 +1,252 @@
+<!DOCTYPE html>  
+<html>  
+<head>  
+    <meta charset="utf-8">  
+    <title>船舶仪表盘</title>  
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.2/dist/echarts.min.js"></script>  
+    <style>  
+        .gauge-container {  
+            width: 400px;  
+            height: 400px;  
+            margin: 20px;  
+            display: inline-block;  
+        }  
+        .dashboard {  
+            text-align: center;  
+        }  
+    </style>  
+</head>  
+<body>  
+    <h1 style="text-align: center;">船舶状态仪表盘</h1>  
+    <div class="dashboard">  
+        <div id="windDirection" class="gauge-container"></div>  
+        <div id="shipDirection" class="gauge-container"></div>  
+        <div id="windSpeed" class="gauge-container"></div>  
+        <div id="shipSpeed" class="gauge-container"></div>  
+    </div>  
+  
+    <script>  
+        // 初始化ECharts实例  
+        var windDirectionChart = echarts.init(document.getElementById('windDirection'));  
+        var shipDirectionChart = echarts.init(document.getElementById('shipDirection'));  
+        var windSpeedChart = echarts.init(document.getElementById('windSpeed'));  
+        var shipSpeedChart = echarts.init(document.getElementById('shipSpeed'));  
+  
+        // 风向仪表盘配置（全圆仪表盘，包含八个方位符号）  
+        var windDirectionOption = {  
+            title: {  
+                text: '风向 (度)',  
+                left: 'center',  
+                top: 'bottom'  
+            },  
+            series: [{  
+                type: 'gauge',  
+                startAngle: 0,  
+                endAngle: 360,  
+                min: 0,  
+                max: 360,  
+                splitNumber: 12,  
+                axisLine: {  
+                    lineStyle: {  
+                        width: 30,  
+                        color: [[0.2, '#91CC75'], [0.8, '#5470C6'], [1, '#EE6666']]  
+                    }  
+                },  
+                axisTick: {  
+                    splitNumber: 6,  
+                    length: 10  
+                },  
+                axisLabel: {  
+                    formatter: function(value) {  
+                        // 添加八个方位的英文缩写  
+                        var directions = {  
+                            0: 'N', 45: 'NE', 90: 'E', 135: 'SE',  
+                            180: 'S', 225: 'SW', 270: 'W', 315: 'NW'  
+                        };  
+                        if (directions[value] !== undefined) {  
+                            return directions[value];  
+                        } else {  
+                            return value + '°';  
+                        }  
+                    }  
+                },  
+                splitLine: {  
+                    length: 15,  
+                    lineStyle: {  
+                        width: 2  
+                    }  
+                },  
+                pointer: {  
+                    width: 5  
+                },  
+                detail: {  
+                    formatter: '{value}°',  
+                    fontSize: 20,  
+                    offset: [0, -20]  
+                },  
+                data: [{value: 45, name: '风向'}]  
+            }]  
+        };  
+  
+        // 船向仪表盘配置（全圆仪表盘，包含八个方位符号）  
+        var shipDirectionOption = {  
+            title: {  
+                text: '船向 (度)',  
+                left: 'center',  
+                top: 'bottom'  
+            },  
+            series: [{  
+                type: 'gauge',  
+                startAngle: 0,  
+                endAngle: 360,  
+                min: 0,  
+                max: 360,  
+                splitNumber: 12,  
+                axisLine: {  
+                    lineStyle: {  
+                        width: 10,  
+                        color: [[0.2, '#91CC75'], [0.8, '#5470C6'], [1, '#EE6666']]  
+                    }  
+                },  
+                axisTick: {  
+                    splitNumber: 6,  
+                    length: 10  
+                },  
+                axisLabel: {  
+                    formatter: function(value) {  
+                        // 添加八个方位的英文缩写  
+                        var directions = {  
+                            0: 'N', 45: 'NE', 90: 'E', 135: 'SE',  
+                            180: 'S', 225: 'SW', 270: 'W', 315: 'NW'  
+                        };  
+                        if (directions[value] !== undefined) {  
+                            return directions[value];  
+                        } else {  
+                            return value + '°';  
+                        }  
+                    }  
+                },  
+                splitLine: {  
+                    length: 15,  
+                    lineStyle: {  
+                        width: 2  
+                    }  
+                },  
+                pointer: {  
+                    width: 5  
+                },  
+                detail: {  
+                    formatter: '{value}°',  
+                    fontSize: 20,  
+                    offset: [0, -20]  
+                },  
+                data: [{value: 180, name: '船向'}]  
+            }]  
+        };  
+  
+        // 风速仪表盘配置（保持原样）  
+        var windSpeedOption = {  
+            title: {  
+                text: '风速 (节)',  
+                left: 'center',  
+                top: 'bottom'  
+            },  
+            series: [{  
+                type: 'gauge',  
+                min: 0,  
+                max: 50,  
+                splitNumber: 10,  
+                axisLine: {  
+                    lineStyle: {  
+                        width: 10,  
+                        color: [[0.2, '#91CC75'], [0.8, '#5470C6'], [1, '#EE6666']]  
+                    }  
+                },  
+                axisTick: {  
+                    splitNumber: 5,  
+                    length: 10  
+                },  
+                axisLabel: {  
+                    formatter: function(value) {  
+                        return value + ' kn';  
+                    }  
+                },  
+                splitLine: {  
+                    length: 15,  
+                    lineStyle: {  
+                        width: 2  
+                    }  
+                },  
+                pointer: {  
+                    width: 5  
+                },  
+                detail: {  
+                    formatter: '{value} kn',  
+                    fontSize: 20,  
+                    offset: [0, -20]  
+                },  
+                data: [{value: 25, name: '风速'}]  
+            }]  
+        };  
+  
+        // 船速仪表盘配置（保持原样）  
+        var shipSpeedOption = {  
+            title: {  
+                text: '船速 (节)',  
+                left: 'center',  
+                top: 'bottom'  
+            },  
+            series: [{  
+                type: 'gauge',  
+                min: 0,  
+                max: 30,  
+                splitNumber: 10,  
+                axisLine: {  
+                    lineStyle: {  
+                        width: 10,  
+                        color: [[0.2, '#91CC75'], [0.8, '#5470C6'], [1, '#EE6666']]  
+                    }  
+                },  
+                axisTick: {  
+                    splitNumber: 5,  
+                    length: 10  
+                },  
+                axisLabel: {  
+                    formatter: function(value) {  
+                        return value + ' kn';  
+                    }  
+                },  
+                splitLine: {  
+                    length: 15,  
+                    lineStyle: {  
+                        width: 2  
+                    }  
+                },  
+                pointer: {  
+                    width: 5  
+                },  
+                detail: {  
+                    formatter: '{value} kn',  
+                    fontSize: 20,  
+                    offset: [0, -20]  
+                },  
+                data: [{value: 15, name: '船速'}]  
+            }]  
+        };  
+  
+        // 使用配置项显示仪表盘  
+        windDirectionChart.setOption(windDirectionOption);  
+        shipDirectionChart.setOption(shipDirectionOption);  
+        windSpeedChart.setOption(windSpeedOption);  
+        shipSpeedChart.setOption(shipSpeedOption);  
+  
+        // 响应窗口大小变化  
+        window.addEventListener('resize', function() {  
+            windDirectionChart.resize();  
+            shipDirectionChart.resize();  
+            windSpeedChart.resize();  
+            shipSpeedChart.resize();  
+        });  
+    </script>  
+</body>  
+</html> 

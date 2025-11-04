@@ -1,0 +1,307 @@
+header{
+    background-image: url(../img/header.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100% 100%;
+    width: 100vw;
+    height: 10vh;
+    line-height: 10vh;
+    text-align: center;
+    font-weight: 400;
+    letter-spacing: 9px;
+    font-size: 3vw;
+    color: #FFFFFF;
+    position: fixed;
+    top: 0;
+    font-family: 'PangMenZhengDao';
+}
+.header-content {
+    display: flex;
+    justify-content: space-between;
+}
+
+footer{
+    position: fixed;
+    bottom: 0;
+}
+.footer-content{
+    display: flex;
+    justify-content: space-between;
+    padding: 23px;
+    width: calc(100vw - 46px);
+}
+.footer-content .content{
+    flex:1;
+}
+.footer-content .footer-container {
+    width: 43vw;
+    display: flex;
+    align-items: center;
+}
+.footer-container .box{
+    width: 12px;
+    height: 12px;
+    /* background: #07112B; */
+    border: 1px solid rgba(21, 246, 238, 1);
+}
+.footer-container .box .boxin{
+    width: 4px;
+    height: 4px;
+    background: rgba(137, 210, 245, 1);
+    margin:4px auto;
+}
+.footer-container .line{
+    width: calc(45vw - 24px);
+    height: 0;
+    border: 2px solid rgba(9, 71, 141, 1)
+}
+.footer-content .content{
+    font-weight: 400;
+    text-align: center;
+    font-size: 1vw;
+    
+}
+aside{
+    /* min-height: 80vh; */
+    position: fixed;
+    top: 12vh;
+}
+.aside-content{
+    display: flex;
+}
+.vertical-menu {
+    /* min-width: 15vw; */
+    overflow: hidden;
+    background: #061f58;
+    box-shadow: 0px 10px 10px 0px rgba(0, 46, 89, 0.63);
+}
+
+.menu-header {
+    padding: 10px 20px;
+    background: #2c3e50;
+    color: white;
+    font-weight: 500;
+    font-size: 18px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient( 180deg, rgba(0,133,255,0) 0%, #0085FF 100%);
+    background-image: 
+        linear-gradient(180deg, rgba(0,133,255,0) 0%, #0085FF 100%),
+        repeating-linear-gradient(
+            135deg,          /* 45度斜角 */
+            #0c2f67 0px,     /* 条纹颜色 */
+            #0c2f67 15px,    /* 条纹宽度 */
+            transparent 15px,/* 透明间隔 */
+            transparent 30px /* 间隔宽度 */
+        );
+    box-shadow: 0px 4px 10px 0px rgba(0, 102, 255, 0.5);
+}
+
+.menu-header::after {
+    content: "▼";
+}
+
+.menu-header.expanded::after {
+    content: "▲";
+}
+
+#menu {
+    display: none;
+    font-weight: 400;
+    font-size: 18px;
+}
+
+.menu-item {
+    margin: 10px 10px 25px 10px;
+    padding: 12px 20px;
+    cursor: pointer;
+    transition: all 0.3s;
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    color: #FFFFFF;
+    
+    background: linear-gradient(0deg, rgba(46, 87, 237, 0.3), rgba(46, 87, 237, 0.3)),
+    linear-gradient(180deg, rgba(124, 208, 255, 0.3) 0%, rgba(0, 41, 147, 0) 100%),
+    linear-gradient(360deg, rgba(0, 133, 255, 0.5) 0%, rgba(0, 163, 255, 0.15) 21.9%, rgba(0, 163, 255, 0) 100%);
+
+    box-shadow: 0px 0px 2px 1px #00B2FF;
+    border-radius: 120px 120px 120px 120px;
+    /* border: 1px solid; */
+    border-image: linear-gradient(360deg, rgba(0, 163, 255, 0), rgba(0, 102, 255, 0.3), rgba(0, 102, 255, 1)) 1 1;
+}
+
+.sub-menu-item.active {
+    color: #ffffff;
+    font-weight: 600;
+}
+
+.sub-menu {
+    display: none;
+    background: #f9f9f9;
+    width: 100%;
+}
+
+.sub-menu .sub-menu-item {
+
+    padding: 17px 16px;
+    background: #0f3f81;
+    font-weight: 500;
+    font-size: 18px;
+    color: #9BC5FA;
+}
+
+.menu-arrow {
+    transition: transform 0.3s;
+    background: #3575C2;
+    border-radius: 50%;
+    border: 1px solid #4183CD;
+    color:#fff ;
+    width: 18px;
+    height: 18px;
+    line-height: 18px;
+    text-align: center;
+}
+
+.menu-item.active .menu-arrow::before {
+    content: "−";
+}
+
+.menu-item:not(.active) .menu-arrow::before {
+    content: "+";
+}
+
+.indicator {
+    margin-left: auto;
+    opacity: 0.5;
+}
+        
+.external-menu {
+    box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+    display: none;
+    z-index: 100;
+    background-color: #070D1C;
+    color:#fff ;
+}
+
+.external-menu  .ship-header{
+    font-family: PingFang SC;
+    font-weight: 500;
+    font-style: Medium;
+    font-size: 18px;
+    opacity: 1;
+    padding: 10px;
+    border-top: 2px solid rgba(0, 170, 255, 1);
+    border-bottom: 2px solid rgba(0, 170, 255, 1);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.ship-icon .icon-left{
+    width: 20px;
+    height: 10px;
+    opacity: 1;
+    top: 7.52px;
+    left: 8.56px;
+    transform: rotate(90deg);
+    background: linear-gradient(0deg, #6CB9FF 0%, #8FC9FF 6.25%, #0058AA 100%);
+}
+.ship-info {
+    opacity: 1;
+    gap: 6px;
+    border-bottom-width: 1px;
+    padding: 10px;
+    border-bottom: 1px solid rgba(0, 170, 255, 0.5)
+}
+.info-row {
+    display: flex;
+    align-items: center;
+    padding: 4px 6px;
+    margin: 5px 0;
+    background: rgba(0, 170, 255, 0.15);
+    opacity: 1;
+    gap: 4px;
+    padding: 8px 10px;
+}
+
+.info-label {
+    font-weight: 400;
+    color: rgba(255,255,255,0.87);
+    font-family: PingFang SC;
+    font-size: 16px;
+}
+
+.info-value {
+    flex: 1;
+    font-family: PingFang SC;
+    font-weight: 400;
+    font-size: 18px;
+}
+
+.monitor-container {
+    background: rgba(8,12,23,0.78);
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    box-shadow: 0px 5px 10px 0px rgba(0,0,0,0.5);
+}
+
+.monitor-box {
+    height: 164px;
+    /* background: #f1f3f8; */
+    margin-bottom: 10px;
+    border-bottom: 1px solid rgba(0, 170, 255, 0.5);
+    background-image: url(../img//monitor.png);
+}
+.monitor-box-bottom{
+    margin-top: 10px;
+    margin-bottom: 0;
+}
+
+.ship-image {
+    height: 24px;
+    margin-right: 10px;
+    vertical-align: middle;
+}
+
+
+/* 字体响应式调整 */
+@media (max-width: 768px) {
+    header {
+        height: 8vh;
+        line-height: 8vh;
+        font-size: 4vw;
+    }
+    aside{
+        position: fixed;
+        top: 10vh;
+    }
+    .aside-header .content .name{
+        font-size: 20px;
+    }
+    .footer-content{
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    header {
+        height: 6vh;
+        line-height: 6vh;
+        font-size: 4.5vw;
+    }
+    aside{
+        position: fixed;
+        top: 8vh;
+    }
+    .aside-header .content .name{
+        font-size: 18px;
+    }
+    .footer-content{
+        font-size: 14px;
+    }
+}
