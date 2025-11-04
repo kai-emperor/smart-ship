@@ -1,5 +1,5 @@
 header{
-    background-image: url(../img/header.png);
+    background-image: url(/img/header.png);
     background-repeat: no-repeat;
     background-position: center;
     background-size: 100% 100%;
@@ -255,7 +255,7 @@ aside{
     /* background: #f1f3f8; */
     margin-bottom: 10px;
     border-bottom: 1px solid rgba(0, 170, 255, 0.5);
-    background-image: url(../img//monitor.png);
+    background-image: url(/img/monitor.png);
 }
 .monitor-box-bottom{
     margin-top: 10px;
